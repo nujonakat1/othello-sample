@@ -23,11 +23,15 @@ int cells[BOARD_WIDTH][BOARD_HEIGHT];
 int cursorX, cursorY;
 int turn;
 
+bool checkCanPut(int _color, int _x, int _y){
+    return false;
+}
+
 int main(){
     for(int y=0; y<BOARD_HEIGHT; y++) 
         for(int x=0; x<BOARD_WIDTH; x++)
             cells[y][x] = COLOR_NOME;
-            
+    bool cantPut = false;
     while(1){
         system("reset");
         for(int y=0; y<BOARD_HEIGHT; y++) {
@@ -44,17 +48,27 @@ int main(){
                     
             printf("\n");
         }
+        if(cantPut)
+            printf("Can't put!\n");
+        else    
         // ボードを描画した後
-        printf("%s turn.\n", colorNames[turn]);
+            printf("%s turn.\n", colorNames[turn]);
 
+        cantPut = false;
         switch(getchar()){
         case'w': cursorY--; break;  //上へ
         case's': cursorY++; break;  //下へ
         case'a': cursorX--; break;  //左へ
         case'd': cursorX++; break;  //右へ
         default:
+            if (!checkCanPut(turn, cursorX, cursorY)){
+                cantPut = true;
+                break;
+            }
+
             // 移動後、石を置く
             cells[cursorY][cursorX] = turn;
+            turn ^=1;
             break;
         }
     }
