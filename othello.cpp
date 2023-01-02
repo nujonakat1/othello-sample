@@ -64,9 +64,10 @@ bool checkCanPut(int _color, int _x, int _y, bool _turnOver){
                 break;
             if(cells[y][x]==COLOR_NOME)     //色が（石が）ない時
                 break;
-            if(cells[y][x]== _color)        //自分と同色の時
+            if(cells[y][x]== _color){        //自分と同色の時
                 if(! _turnOver)
                     return true;            //置ける
+
                 int x2 = _x, y2 = _y;       //新たな x y 
                 // ひっくり返し処理
                 while(1){
@@ -78,6 +79,7 @@ bool checkCanPut(int _color, int _x, int _y, bool _turnOver){
                     if((x2 == x) && (y2 == y))
                         break;
                 }
+            }
         }
     }
     return false;
@@ -92,15 +94,8 @@ bool checkCanPutAll(int _color){
     return false;
 }
 
-int main(){
-    for(int y=0; y<BOARD_HEIGHT; y++) 
-        for(int x=0; x<BOARD_WIDTH; x++)
-            cells[y][x] = COLOR_NOME;
-    cells[3][3] = cells[4][4] = COLOR_WHITE;
-    cells[3][4] = cells[4][3] = COLOR_BLACK;
-    bool cantPut = false;
-    while(1){
-        system("reset");
+void drawBoard(){
+    system("reset");
         for(int y=0; y<BOARD_HEIGHT; y++) {
             for(int x=0; x<BOARD_WIDTH; x++)
                 if((x==cursorX) && (y==cursorY))
@@ -115,6 +110,18 @@ int main(){
                     
             printf("\n");
         }
+}
+
+int main(){
+    for(int y=0; y<BOARD_HEIGHT; y++) 
+        for(int x=0; x<BOARD_WIDTH; x++)
+            cells[y][x] = COLOR_NOME;
+    cells[3][3] = cells[4][4] = COLOR_WHITE;
+    cells[3][4] = cells[4][3] = COLOR_BLACK;
+    bool cantPut = false;
+    while(1){
+        drawBoard();
+        
         if(cantPut)
             printf("Can't put! %s turn.\n", colorNames[turn]);
         else    
@@ -147,8 +154,29 @@ int main(){
         }
 
         if((!checkCanPutAll(COLOR_BLACK)) && (!checkCanPutAll(COLOR_WHITE))){
-            printf("Game set!\n");
-            // getchar();
+            // 勝ち負けの判定
+            int count[COLOR_MAX] = {};
+            for(int y=0; y<BOARD_HEIGHT; y++) 
+                for(int x=0; x<BOARD_WIDTH; x++)
+                    if(cells[y][x]!=COLOR_NOME)
+                        count[cells[y][x]]++;
+            
+            drawBoard();
+            for(int i = 0; i < COLOR_MAX; i++)
+                printf("%s:%d\n", colorNames[i], count[i]);
+
+            if(count[COLOR_BLACK] == count[COLOR_WHITE])
+                printf("Draw!\n");
+            else {
+                if(count[COLOR_BLACK] > count[COLOR_WHITE])
+                    printf("%s", colorNames[COLOR_BLACK]);
+                else
+                    printf("%s", colorNames[COLOR_WHITE]);
+
+                printf("Won!\n");
+            }
+
+            getchar();
             break;
         }
     }
