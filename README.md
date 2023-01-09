@@ -4,10 +4,10 @@
 <h3>チカチカと光るもの、蛍のように光るものを作成しました。</h3>
 
 <h3>チカチカ光る動画</h3>
-<a href="https://user-images.githubusercontent.com/119907964/211155905-227e8437-2ffd-4dff-9bba-1d75d5cf74ff.mp4">
+<a href="https://user-images.githubusercontent.com/119907964/211326752-5daf8958-04e9-42ff-ba46-2e193b8d9f42.mp4">リンク</a>
 
 <h3>蛍のように光る動画</h3>
-<a href="https://user-images.githubusercontent.com/119907964/211155832-829443e9-b05e-43bb-8852-705c92837af9.mp4">
+<a href="https://user-images.githubusercontent.com/119907964/211326948-0005ed32-9689-4e74-9822-2b1e1dfe83ae.mp4">リンク</a>
 
 <h2>オセロについて</h2>
 <h3>ルールは Wikipedia に習い作成しましたが、ターミナル上でのみ遊べるオセロになります。</h3>
